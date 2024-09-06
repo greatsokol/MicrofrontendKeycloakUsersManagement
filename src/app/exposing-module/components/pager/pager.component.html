@@ -1,0 +1,39 @@
+<div class="sticky-bottom" *ngIf="pageLoader?.getData() as data">
+  <div class="hstack">
+    <nav *ngIf="data.payload.totalPages > 1" class="test-page-select">
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="{{data.payload.number == 0 ? 'page-link disabled' : 'page-link'}} test-previous-link"
+             [ngStyle]="{'cursor': 'pointer'}" routerLink="."
+             [queryParams]="{size: data.payload.size, page: data.payload.number-1, filter: data.filter ? data.filter : undefined}">Пред</a>
+        </li>
+        <li class="{{i == data.payload.number ? 'page-item active' : 'page-item'}} test-pagenumber-{{i}}"
+            *ngFor="let number of [].constructor(data.payload.totalPages);  let i = index">
+          <a class="page-link" [ngStyle]="{'cursor': 'pointer'}" routerLink="."
+             [queryParams]="{size: data.payload.size, page: i, filter: data.filter ? data.filter : undefined}">{{ i + 1 }}</a>
+        </li>
+        <li class="page-item">
+          <a
+            class="{{data.payload.number == data.payload.totalPages-1 ? 'page-link disabled' : 'page-link'}} test-next-link"
+            [ngStyle]="{'cursor': 'pointer'}"
+            routerLink="."
+            [queryParams]="{size: data.payload.size, page: data.payload.number+1, filter: data.filter ? data.filter : undefined}">Далее</a>
+        </li>
+      </ul>
+    </nav>
+    <nav *ngIf="data.payload.totalElements > 10" class="ms-auto test-items-count">
+      <ul class="pagination">
+        <li class="{{count == data.payload.size ? 'page-item active' : 'page-item'}} test-count-{{count}}"
+            *ngFor="let count of [10, 20, 30]">
+          <a class="page-link" [ngStyle]="{'cursor': 'pointer'}" routerLink="."
+             [queryParams]="{size: count, page: 0, filter: data.filter ? data.filter : undefined}">{{ count }}</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<!--
+(click)="pageLoader?.setPageNumber(page.number-1)"
+(click)="pageLoader?.setPageNumber(i)"
+(click)="pageLoader?.setPageNumber(page.number+1)"-->
