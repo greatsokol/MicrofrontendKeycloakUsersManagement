@@ -5,7 +5,11 @@
   "projects": {
     "mf-kcusers": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "css"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -13,7 +17,7 @@
         "build": {
           "builder": "ngx-build-plus:browser",
           "options": {
-            "outputPath": "dist",
+            "outputPath": "dist/mf-kcusers",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
