@@ -45,7 +45,7 @@ export class UserPageComponent extends AuthorizableDataComponent implements OnIn
       .post(url.href, body, headers)
       .subscribe({
         next: res => this.dataLoader.setData(res),
-        error: err => this.dataLoader.setError(err)
+        error: err => this.dataLoader.setError(err.error.message)
       });
   }
 }
