@@ -1,5 +1,5 @@
 import {Inject, inject, Injectable} from "@angular/core";
-import {AuthConfig, OAuthService, OAuthSuccessEvent} from "angular-oauth2-oidc";
+import {AuthConfig, OAuthErrorEvent, OAuthService, OAuthSuccessEvent} from "angular-oauth2-oidc";
 import {AuthContext} from "./types/authcontext";
 import {AppConfig} from "./types/appconfig";
 
@@ -21,7 +21,8 @@ export class AuthService {
   }
 
   public logout = (): void => {
-    this.oAuthService.logOut();
+    this.oAuthService.revokeTokenAndLogout().then(() => {
+    });
   }
 
   public isLoggedIn(): boolean {
@@ -94,6 +95,8 @@ export class AuthService {
             console.error(err);
           }
         });
+      } else if (event instanceof OAuthErrorEvent) {
+        this.logout();
       }
     });
     oAuthService.loadDiscoveryDocumentAndLogin().then(r => {

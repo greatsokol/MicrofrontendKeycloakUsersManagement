@@ -35,7 +35,7 @@ export class DefaultDataLoader {
       },
       error: err => {
         console.log(err);
-        this.error = err.error.message;
+        this.error = err ? err.error?.message : null;
         this.data = null;
       }
     });
