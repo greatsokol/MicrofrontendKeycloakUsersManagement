@@ -3,10 +3,16 @@ import {DATE_FORMAT} from "../../services/DateFormatToken";
 import {ActivatedRoute} from "@angular/router";
 import {AuthorizableDataComponent} from "../../components/etc/AuthorizableDataComponent";
 import {LoginsLoaderService} from "../../services/LoginsLoaderService";
+import {TitleComponent} from "../../components/title/title.component";
+import {DatePipe, NgFor, NgIf} from "@angular/common";
+import {PagerComponent} from "../../components/pager/pager.component";
+import {ProgressComponent} from "../../components/progress/progress.component";
 
 @Component({
   selector: "logins-page-component[userName]",
-  templateUrl: "./logins-page.component.html"
+  templateUrl: "./logins-page.component.html",
+  standalone: true,
+  imports: [NgIf, NgFor, DatePipe, TitleComponent, ProgressComponent, PagerComponent]
 })
 export class LoginsPageComponent extends AuthorizableDataComponent implements OnInit, OnDestroy {
   protected dateFormat = inject(DATE_FORMAT);

@@ -7,6 +7,7 @@ import {KcusersModule} from "./exposing-module/kcusers.module";
 import {BrowserModule} from "@angular/platform-browser";
 import {AuthModule} from "@@auth-lib"
 import {appConfig} from "../config";
+import {MainComponent} from "./exposing-module/pages/main/main.component";
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import {appConfig} from "../config";
     AuthModule,
     BrowserModule,
     KcusersModule,
-    RouterModule.forRoot(APP_ROUTES) //{bindToComponentInputs: true}
+    RouterModule.forRoot(APP_ROUTES),
+    MainComponent,
   ],
   declarations: [
     AppComponent

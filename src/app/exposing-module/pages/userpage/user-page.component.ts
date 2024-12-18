@@ -3,13 +3,18 @@ import {UserLoaderService} from "../../services/UserLoaderService";
 import {DATE_FORMAT} from "../../services/DateFormatToken";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {AuthorizableDataComponent} from "../../components/etc/AuthorizableDataComponent";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, RouterLink} from "@angular/router";
 import {serverUrl} from "../../../../config";
+import {TitleComponent} from "../../components/title/title.component";
+import {DatePipe, NgIf} from "@angular/common";
+import {ProgressComponent} from "../../components/progress/progress.component";
 
 
 @Component({
   selector: "user-page-component",
-  templateUrl: "./user-page.component.html"
+  templateUrl: "./user-page.component.html",
+  standalone: true,
+  imports: [NgIf, DatePipe, RouterLink, TitleComponent, ProgressComponent]
 })
 export class UserPageComponent extends AuthorizableDataComponent implements OnInit, OnDestroy {
   @Input("realmName") realmName = "";
@@ -24,8 +29,8 @@ export class UserPageComponent extends AuthorizableDataComponent implements OnIn
     this.route.params.subscribe(params => {
       this.realmName = params["realmName"];
       this.userName = params["userName"];
-      if(!this.realmName) throw Error("empty realmName");
-      if(!this.userName) throw Error("empty userName");
+      if (!this.realmName) throw Error("empty realmName");
+      if (!this.userName) throw Error("empty userName");
       this.dataLoader.load("/api/user/" + this.realmName + '/' + this.userName);
     });
   }

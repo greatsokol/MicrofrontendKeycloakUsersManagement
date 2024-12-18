@@ -1,24 +1,20 @@
 import {Routes} from "@angular/router";
-import {UsersPageComponent} from "./pages/userspage/users-page.component";
-import {UserPageComponent} from "./pages/userpage/user-page.component";
-import {UserEventsPageComponent} from "./pages/usereventspage/user-events-page.component";
-import {LoginsPageComponent} from "./pages/loginspage/logins-page.component";
 
 export const ROUTES: Routes = [
   {
     path: "",
-    component: UsersPageComponent
+    loadComponent: () => import("./pages/userspage/users-page.component").then(c => c.UsersPageComponent)
   },
   {
     path: "logins/:userName",
-    component: LoginsPageComponent
+    loadComponent: () => import("./pages/loginspage/logins-page.component").then(c => c.LoginsPageComponent)
   },
   {
     path: ":realmName/:userName",
-    component: UserPageComponent
+    loadComponent: () => import("./pages/userpage/user-page.component").then(c => c.UserPageComponent)
   },
   {
     path: ":realmName/:userName/events",
-    component: UserEventsPageComponent
+    loadComponent: () => import("./pages/usereventspage/user-events-page.component").then(c => c.UserEventsPageComponent)
   },
 ];
