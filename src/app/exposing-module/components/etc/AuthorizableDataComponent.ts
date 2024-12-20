@@ -32,7 +32,7 @@ export class AuthorizableDataComponent {
   }
 
   constructor() {
-    this.authService.subscribeOnKeycloakReady(() => {
+    this.authService.subscribeOnKeycloakReadyOnce(() => {
       this.registerKCProfileID(); // if started standalone
     });
 
