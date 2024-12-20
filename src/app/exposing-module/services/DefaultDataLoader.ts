@@ -46,7 +46,7 @@ export class DefaultDataLoader {
     if (this.authService.isLoggedIn()) {
       this.__load(path, reqParams);
     } else {
-      this.authService.subscribeOnKeycloakReadyOnce(() => {
+      this.authService.onLoggedIn().subscribe(() => {
         this.__load(path, reqParams);
       });
     }
