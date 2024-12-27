@@ -3,7 +3,6 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {CUSTOM_ELEMENTS_SCHEMA, inject} from "@angular/core";
 import {UsersPageComponent} from "./users-page.component";
 import {AuthService} from "@@auth-lib";
-import {SharedValuesService} from "../../services/SharedValuesService";
 import {HttpClient} from "@angular/common/http";
 import {DATE_FORMAT} from "../../services/DateFormatToken";
 import {UsersLoaderService} from "../../services/UsersLoaderService";
@@ -41,10 +40,6 @@ describe("KCUsers: UsersPageComponent", () => {
       {
         provide: AuthService,
         useValue: jasmine.createSpyObj("AuthService", ["subscribeOnKeycloakReady", "getAuthContext"])
-      },
-      {
-        provide: SharedValuesService,
-        useValue: jasmine.createSpyObj("SharedValuesService", ["getValue"])
       },
       {
         provide: UsersLoaderService,

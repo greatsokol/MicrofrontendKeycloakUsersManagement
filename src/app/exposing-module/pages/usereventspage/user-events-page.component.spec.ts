@@ -2,12 +2,10 @@ import {TestBed} from "@angular/core/testing";
 import {RouterTestingModule} from "@angular/router/testing";
 import {CUSTOM_ELEMENTS_SCHEMA, inject} from "@angular/core";
 import {AuthService} from "@@auth-lib";
-import {SharedValuesService} from "../../services/SharedValuesService";
 import {HttpClient} from "@angular/common/http";
 import {DATE_FORMAT} from "../../services/DateFormatToken";
 import {UserEventsLoaderService} from "../../services/UserEventsLoaderService";
 import {UserEventsPageComponent} from "./user-events-page.component";
-import {LoginsLoaderService} from "../../services/LoginsLoaderService";
 
 const check = (data: object | null,
                error: string | null,
@@ -42,10 +40,6 @@ describe("KCUsers: UsersEventsPageComponent", () => {
       {
         provide: AuthService,
         useValue: jasmine.createSpyObj("AuthService", ["subscribeOnKeycloakReady", "getAuthContext"])
-      },
-      {
-        provide: SharedValuesService,
-        useValue: jasmine.createSpyObj("SharedValuesService", ["getValue"])
       },
       {
         provide: UserEventsLoaderService,

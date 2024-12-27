@@ -8,6 +8,7 @@ import {serverUrl} from "../../../../config";
 import {TitleComponent} from "../../components/title/title.component";
 import {DatePipe, NgIf} from "@angular/common";
 import {ProgressComponent} from "../../components/progress/progress.component";
+import {Subscription} from "rxjs";
 
 
 @Component({
@@ -24,9 +25,10 @@ export class UserPageComponent extends AuthorizableDataComponent implements OnIn
   dataLoader = inject(UserLoaderService);
   protected dateFormat = inject(DATE_FORMAT);
   protected httpClient = inject(HttpClient);
+  private paramsSub: Subscription | undefined;
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
+    this.paramsSub = this.route.params.subscribe(params => {
       this.realmName = params["realmName"];
       this.userName = params["userName"];
       if (!this.realmName) throw Error("empty realmName");
@@ -37,20 +39,23 @@ export class UserPageComponent extends AuthorizableDataComponent implements OnIn
 
   ngOnDestroy() {
     this.dataLoader.clear();
+    this.paramsSub?.unsubscribe();
   }
 
   protected postChanges() {
+
     const body = "enabled=" + this.enabledInputCheckBox.nativeElement.checked;
     const headers = {
       headers: new HttpHeaders().set("Content-type", "application/x-www-form-urlencoded")
     };
     const url = new URL("/api/user/" + this.realmName + "/" + this.userName, serverUrl);
-    this
+    const sub: Subscription = this
       .httpClient
       .post(url.href, body, headers)
       .subscribe({
         next: res => this.dataLoader.setData(res),
-        error: err => this.dataLoader.setError(err.error.message)
+        error: err => this.dataLoader.setError(err.error.message),
+        complete: () => sub.unsubscribe()
       });
   }
 }
