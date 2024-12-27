@@ -12,8 +12,8 @@ export class DefaultDataLoader {
   protected data: DataType = null;
   protected error: ErrorMessageType = null;
 
-  private path: string = "";
-  private params: object = {};
+  // private path: string = "";
+  // private params: object = {};
 
   private _handleData(data: DataType) {
     this.error = null;
@@ -27,9 +27,9 @@ export class DefaultDataLoader {
   }
 
   private _load(path: string, params: object) {
-    this.authService.isAuthenticated().then(loggedIn => {
-      this.path = path;
-      this.params = params;
+    //this.authService.isAuthenticated().then(loggedIn => {
+      // this.path = path;
+      // this.params = params;
 
       let url = new URL(path, serverUrl);
       let requestParams = new HttpParams({fromObject: {...params}});
@@ -41,17 +41,16 @@ export class DefaultDataLoader {
           next: body => this._handleData(body),
           error: error => this._handleError(error),
         });
-    });
+    //});
   }
 
   public load(path: string, params?: object) {
-    let reqParams = params ? params : {};
-    this._load(path, reqParams);
+    this._load(path, params ? params : {});
   }
 
-  private reload() {
-    this.load(this.path, this.params);
-  }
+  // private reload() {
+  //   this.load(this.path, this.params);
+  // }
 
   public getData(): DataType {
     return this.data;

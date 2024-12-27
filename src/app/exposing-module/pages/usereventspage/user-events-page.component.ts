@@ -7,7 +7,6 @@ import {TitleComponent} from "../../components/title/title.component";
 import {PagerComponent} from "../../components/pager/pager.component";
 import {ProgressComponent} from "../../components/progress/progress.component";
 import {DatePipe, NgFor, NgIf} from "@angular/common";
-import {Subscription} from "rxjs";
 
 @Component({
   selector: "user-events-page-component",
@@ -19,24 +18,20 @@ export class UserEventsPageComponent extends AuthorizableDataComponent implement
   protected dateFormat = inject(DATE_FORMAT);
   dataLoader = inject(UserEventsLoaderService);
   private route = inject(ActivatedRoute);
-  private paramsSub: Subscription | undefined;
-  private queryParamsSub: Subscription | undefined;
   @Input("realmName") realmName = "";
   @Input("userName") userName = "";
 
   ngOnDestroy(): void {
     this.dataLoader.clear();
-    this.paramsSub?.unsubscribe();
-    this.queryParamsSub?.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.paramsSub = this.route.params.subscribe(params => {
+    this.route.params.subscribe(params => {
       this.realmName = params["realmName"];
       this.userName = params["userName"];
     });
 
-    this.queryParamsSub = this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe(params => {
       if (!this.realmName) throw Error("empty realmName");
       if (!this.userName) throw Error("empty userName");
 

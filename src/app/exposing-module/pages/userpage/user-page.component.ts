@@ -25,10 +25,9 @@ export class UserPageComponent extends AuthorizableDataComponent implements OnIn
   dataLoader = inject(UserLoaderService);
   protected dateFormat = inject(DATE_FORMAT);
   protected httpClient = inject(HttpClient);
-  private paramsSub: Subscription | undefined;
 
   ngOnInit() {
-    this.paramsSub = this.route.params.subscribe(params => {
+    this.route.params.subscribe(params => {
       this.realmName = params["realmName"];
       this.userName = params["userName"];
       if (!this.realmName) throw Error("empty realmName");
@@ -39,7 +38,6 @@ export class UserPageComponent extends AuthorizableDataComponent implements OnIn
 
   ngOnDestroy() {
     this.dataLoader.clear();
-    this.paramsSub?.unsubscribe();
   }
 
   protected postChanges() {

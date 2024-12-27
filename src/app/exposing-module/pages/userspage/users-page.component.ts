@@ -8,7 +8,6 @@ import {TitleComponent} from "../../components/title/title.component";
 import {FormsModule} from "@angular/forms";
 import {ProgressComponent} from "../../components/progress/progress.component";
 import {PagerComponent} from "../../components/pager/pager.component";
-import {Subscription} from "rxjs";
 
 @Component({
   selector: "users-page-component",
@@ -23,16 +22,13 @@ export class UsersPageComponent extends AuthorizableDataComponent implements OnI
   private route = inject(ActivatedRoute);
   protected filter: String = "";
   protected submitted: boolean = false;
-  private paramsSub : Subscription | undefined;
-
 
   ngOnDestroy(): void {
     this.dataLoader.clear();
-    this.paramsSub?.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.paramsSub = this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe(params => {
       const page = params["page"] ? params["page"] : 0;
       const size = params["size"] ? params["size"] : 10;
       this.filter = params["filter"] ? params["filter"] : "";
