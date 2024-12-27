@@ -24,8 +24,7 @@ registerLocaleData(localeEn);
     UsersLoaderService,
     UserLoaderService,
     UserEventsLoaderService,
-    LoginsLoaderService,
-    AuthService
+    LoginsLoaderService
   ]
 })
 export class KcusersModule {
