@@ -9,7 +9,6 @@ import {UsersLoaderService} from "./services/UsersLoaderService";
 import {UserLoaderService} from "./services/UserLoaderService";
 import {UserEventsLoaderService} from "./services/UserEventsLoaderService";
 import {LoginsLoaderService} from "./services/LoginsLoaderService";
-import {AuthService} from "@@auth-lib"
 
 registerLocaleData(localeRu);
 registerLocaleData(localeEn);
