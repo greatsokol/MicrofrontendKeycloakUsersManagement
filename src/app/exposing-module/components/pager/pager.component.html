@@ -5,7 +5,7 @@
         <li class="page-item">
           <a class="{{number == 0 ? 'page-link disabled' : 'page-link'}} test-previous-link"
              [ngStyle]="{'cursor': 'pointer'}" routerLink="."
-             [skipLocationChange]="true"
+             [skipLocationChange]="skipLocationChange"
              [queryParams]="{size: size, page: number-1, filter: filter ? filter : undefined}">Пред</a>
         </li>
 
@@ -14,7 +14,7 @@
               *ngIf="i<5 || i>totalPages-5 || (i>3 && i<totalPages-3 && i>number-2 && i<number+2)">
             <a
               class="page-link" [ngStyle]="{'cursor': 'pointer'}" routerLink="."
-              [skipLocationChange]="true"
+              [skipLocationChange]="skipLocationChange"
               [queryParams]="{size: size, page: i, filter: filter ? filter : undefined}">{{ i + 1 }}</a>
           </li>
         </div>
@@ -24,7 +24,7 @@
             class="{{number == totalPages-1 ? 'page-link disabled' : 'page-link'}} test-next-link"
             [ngStyle]="{'cursor': 'pointer'}"
             routerLink="."
-            [skipLocationChange]="true"
+            [skipLocationChange]="skipLocationChange"
             [queryParams]="{size: size, page: number+1, filter: filter ? filter : undefined}">Далее</a>
         </li>
       </ul>
@@ -34,7 +34,7 @@
         <li class="{{count == size ? 'page-item active' : 'page-item'}} test-count-{{count}}"
             *ngFor="let count of [10, 20, 30]">
           <a class="page-link" [ngStyle]="{'cursor': 'pointer'}" routerLink="."
-             [skipLocationChange]="true"
+             [skipLocationChange]="skipLocationChange"
              [queryParams]="{size: count, page: 0, filter: filter ? filter : undefined}">{{ count }}</a>
         </li>
       </ul>

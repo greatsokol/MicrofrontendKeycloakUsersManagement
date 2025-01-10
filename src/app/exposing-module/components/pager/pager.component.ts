@@ -14,4 +14,5 @@ export class PagerComponent {
   @Input("totalPages") totalPages: number = 0;
   @Input("totalElements") totalElements: number = 0;
   @Input("filter") filter: String | null = null;
+  @Input("skipLocationChange") skipLocationChange: boolean = true;
 }
