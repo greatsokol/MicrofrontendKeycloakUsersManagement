@@ -1,31 +1,30 @@
-import {Component, inject, OnDestroy, OnInit} from "@angular/core";
+import {Component, inject, OnInit} from "@angular/core";
 import {DATE_FORMAT} from "../../services/DateFormatToken";
-import {UsersLoaderService} from "../../services/UsersLoaderService";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {AuthorizableDataComponent} from "../../components/etc/AuthorizableDataComponent";
-import {DatePipe, NgFor, NgIf, NgStyle} from "@angular/common";
+import {AsyncPipe, DatePipe, NgFor, NgIf, NgStyle} from "@angular/common";
 import {TitleComponent} from "../../components/title/title.component";
 import {FormsModule} from "@angular/forms";
-import {ProgressComponent} from "../../components/progress/progress.component";
 import {PagerComponent} from "../../components/pager/pager.component";
+import {Observable} from "rxjs";
+import {UsersResponse} from "../../types/UsersResponse";
+import {DataLoader} from "../../services/DataLoader";
+import {ErrorComponent} from "../../components/error/error.component";
 
 @Component({
   selector: "users-page-component",
   templateUrl: "./users-page.component.html",
   standalone: true,
-  imports: [NgIf, NgFor, NgStyle, RouterLink, DatePipe, FormsModule, TitleComponent, ProgressComponent, PagerComponent]
+  imports: [NgIf, NgFor, NgStyle, RouterLink, DatePipe, FormsModule, TitleComponent, PagerComponent, AsyncPipe, ErrorComponent]
 })
-export class UsersPageComponent extends AuthorizableDataComponent implements OnInit, OnDestroy {
+export class UsersPageComponent extends AuthorizableDataComponent implements OnInit {
   protected dateFormat = inject(DATE_FORMAT);
-  dataLoader = inject(UsersLoaderService);
+  dataLoader = inject(DataLoader);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   protected filter: String = "";
   protected submitted: boolean = false;
-
-  ngOnDestroy(): void {
-    this.dataLoader.clear();
-  }
+  public data$: Observable<UsersResponse> | undefined;
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -34,7 +33,7 @@ export class UsersPageComponent extends AuthorizableDataComponent implements OnI
       this.filter = params["filter"] ? params["filter"] : "";
       this.submitted = !!this.filter;
 
-      this.dataLoader.load("/api/users", this.filter ? {
+      this.data$ = this.dataLoader.load("/api/users", this.filter ? {
         filter: this.filter,
         page,
         size
@@ -45,7 +44,6 @@ export class UsersPageComponent extends AuthorizableDataComponent implements OnI
     });
   }
 
-
   onSearchSubmit = () => {
     if (!this.filter.trim()) {
       this.filter = "";
@@ -55,7 +53,6 @@ export class UsersPageComponent extends AuthorizableDataComponent implements OnI
     this.router.navigate([], {
       queryParams: {filter: this.filter}
     });
-
   }
 
   onSearchDismiss = () => {

@@ -1,59 +1,41 @@
-import {Component, inject, Input, OnDestroy, OnInit, ViewChild} from "@angular/core";
-import {UserLoaderService} from "../../services/UserLoaderService";
+import {Component, inject, Input, OnInit} from "@angular/core";
 import {DATE_FORMAT} from "../../services/DateFormatToken";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {AuthorizableDataComponent} from "../../components/etc/AuthorizableDataComponent";
 import {ActivatedRoute, RouterLink} from "@angular/router";
-import {serverUrl} from "../../../../config";
 import {TitleComponent} from "../../components/title/title.component";
-import {DatePipe, NgIf} from "@angular/common";
-import {ProgressComponent} from "../../components/progress/progress.component";
-import {Subscription} from "rxjs";
+import {AsyncPipe, DatePipe, NgIf} from "@angular/common";
+import {Observable} from "rxjs";
+import {UserResponse} from "../../types/UserResponse";
+import {DataLoader} from "../../services/DataLoader";
+import {ErrorComponent} from "../../components/error/error.component";
+import {FormsModule} from "@angular/forms";
 
 
 @Component({
   selector: "user-page-component",
   templateUrl: "./user-page.component.html",
   standalone: true,
-  imports: [NgIf, DatePipe, RouterLink, TitleComponent, ProgressComponent]
+  imports: [NgIf, DatePipe, RouterLink, TitleComponent, AsyncPipe, ErrorComponent, FormsModule]
 })
-export class UserPageComponent extends AuthorizableDataComponent implements OnInit, OnDestroy {
-  @Input("realmName") realmName = "";
-  @Input("userName") userName = "";
-  @ViewChild("enabledInputCheckBox") enabledInputCheckBox: any;
+export class UserPageComponent extends AuthorizableDataComponent implements OnInit {
+  @Input("realmName") realmName: string | undefined;
+  @Input("userName") userName: string | undefined;
+  //@ViewChild("enabledInputCheckBox") enabledInputCheckBox: any;
   private route = inject(ActivatedRoute);
-  dataLoader = inject(UserLoaderService);
+  dataLoader = inject(DataLoader);
   protected dateFormat = inject(DATE_FORMAT);
-  protected httpClient = inject(HttpClient);
+  public data$: Observable<UserResponse> | undefined;
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.realmName = params["realmName"];
       this.userName = params["userName"];
-      if (!this.realmName) throw Error("empty realmName");
-      if (!this.userName) throw Error("empty userName");
-      this.dataLoader.load("/api/user/" + this.realmName + '/' + this.userName);
+      if (!this.realmName) throw Error("empty realmName param");
+      if (!this.userName) throw Error("empty userName param");
+      this.data$ = this.dataLoader.load("/api/user/" + this.realmName + '/' + this.userName);
     });
   }
 
-  ngOnDestroy() {
-    this.dataLoader.clear();
-  }
-
-  protected postChanges() {
-
-    const body = "enabled=" + this.enabledInputCheckBox.nativeElement.checked;
-    const headers = {
-      headers: new HttpHeaders().set("Content-type", "application/x-www-form-urlencoded")
-    };
-    const url = new URL("/api/user/" + this.realmName + "/" + this.userName, serverUrl);
-    const sub: Subscription = this
-      .httpClient
-      .post(url.href, body, headers)
-      .subscribe({
-        next: res => this.dataLoader.setData(res),
-        error: err => this.dataLoader.setError(err.error.message),
-        complete: () => sub.unsubscribe()
-      });
+  public checkBoxClick(checked: boolean) {
   }
 }

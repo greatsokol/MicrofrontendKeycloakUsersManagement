@@ -1,5 +1,4 @@
 import {Component, Input} from "@angular/core";
-import {PagableDataLoader} from "../../services/PagableDataLoader";
 import {NgFor, NgIf, NgStyle} from "@angular/common";
 import {RouterLink} from "@angular/router";
 
@@ -10,5 +9,9 @@ import {RouterLink} from "@angular/router";
   imports: [NgStyle, NgIf, NgFor, RouterLink]
 })
 export class PagerComponent {
-  @Input("pageLoader") pageLoader: PagableDataLoader | null = null;
+  @Input("number") number: number = 0;
+  @Input("size") size: number = 0;
+  @Input("totalPages") totalPages: number = 0;
+  @Input("totalElements") totalElements: number = 0;
+  @Input("filter") filter: String | null = null;
 }

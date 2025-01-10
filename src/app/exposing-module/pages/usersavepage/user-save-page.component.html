@@ -1,0 +1,23 @@
+<div *ngIf="data$ | async as data">
+  <div *ngIf="data.error; then error else content"></div>
+
+  <ng-template #error>
+    <app-error [message]="data.error"></app-error>
+  </ng-template>
+
+  <ng-template #content>
+    <title-component
+      title="Пользователь {{ userName + ' (' + realmName + ')' }}">
+    </title-component>
+
+    <div class="test-data-div">
+      <div class="mb-2 row">
+        <label class="col-sm-2 col-form-label fw-bold" for="comment">Комментарий</label>
+        <div class="col-lg-8">
+          <input class="form-control-plaintext" id="comment" readonly type="text"
+                 value="{{data.payload.comment}}">
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
