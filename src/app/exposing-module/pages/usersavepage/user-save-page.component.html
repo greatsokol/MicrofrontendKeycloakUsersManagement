@@ -1,4 +1,8 @@
-<div *ngIf="data$ | async as data">
+<ng-template #progress>
+  <progress-component></progress-component>
+</ng-template>
+
+<div *ngIf="data$ | async as data; else progress">
   <div *ngIf="data.error; then error else content"></div>
 
   <ng-template #error>

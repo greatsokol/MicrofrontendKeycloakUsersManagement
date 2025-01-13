@@ -10,12 +10,13 @@ import {Observable} from "rxjs";
 import {UsersResponse} from "../../types/UsersResponse";
 import {DataLoader} from "../../services/DataLoader";
 import {ErrorComponent} from "../../components/error/error.component";
+import {ProgressComponent} from "../../components/progress/progress.component";
 
 @Component({
   selector: "users-page-component",
   templateUrl: "./users-page.component.html",
   standalone: true,
-  imports: [NgIf, NgFor, NgStyle, RouterLink, DatePipe, FormsModule, TitleComponent, PagerComponent, AsyncPipe, ErrorComponent]
+  imports: [NgIf, NgFor, NgStyle, RouterLink, DatePipe, FormsModule, TitleComponent, PagerComponent, AsyncPipe, ErrorComponent, ProgressComponent]
 })
 export class UsersPageComponent extends AuthorizableDataComponent implements OnInit {
   protected dateFormat = inject(DATE_FORMAT);

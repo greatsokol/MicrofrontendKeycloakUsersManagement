@@ -9,13 +9,14 @@ import {UserResponse} from "../../types/UserResponse";
 import {DataLoader} from "../../services/DataLoader";
 import {ErrorComponent} from "../../components/error/error.component";
 import {FormsModule} from "@angular/forms";
+import {ProgressComponent} from "../../components/progress/progress.component";
 
 
 @Component({
   selector: "user-page-component",
   templateUrl: "./user-page.component.html",
   standalone: true,
-  imports: [NgIf, DatePipe, RouterLink, TitleComponent, AsyncPipe, ErrorComponent, FormsModule]
+  imports: [NgIf, DatePipe, RouterLink, TitleComponent, AsyncPipe, ErrorComponent, FormsModule, ProgressComponent]
 })
 export class UserPageComponent extends AuthorizableDataComponent implements OnInit {
   @Input("realmName") realmName: string | undefined;

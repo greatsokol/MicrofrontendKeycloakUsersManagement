@@ -9,12 +9,13 @@ import {combineLatest, Observable, Subscription} from "rxjs";
 import {LoginResponse} from "../../types/LoginResponse";
 import {DataLoader} from "../../services/DataLoader";
 import {ErrorComponent} from "../../components/error/error.component";
+import {ProgressComponent} from "../../components/progress/progress.component";
 
 @Component({
   selector: "logins-page-component[userName]",
   templateUrl: "./logins-page.component.html",
   standalone: true,
-  imports: [NgIf, NgFor, DatePipe, TitleComponent, PagerComponent, AsyncPipe, ErrorComponent]
+  imports: [NgIf, NgFor, DatePipe, TitleComponent, PagerComponent, AsyncPipe, ErrorComponent, ProgressComponent]
 })
 export class LoginsPageComponent extends AuthorizableDataComponent implements OnInit, OnDestroy {
   protected dateFormat = inject(DATE_FORMAT);

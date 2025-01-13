@@ -7,11 +7,12 @@ import {UserResponse} from "../../types/UserResponse";
 import {HttpHeaders} from "@angular/common/http";
 import {ErrorComponent} from "../../components/error/error.component";
 import {TitleComponent} from "../../components/title/title.component";
+import {ProgressComponent} from "../../components/progress/progress.component";
 
 @Component({
   selector: 'user-save-page-component',
   standalone: true,
-  imports: [CommonModule, ErrorComponent, TitleComponent],
+  imports: [CommonModule, ErrorComponent, TitleComponent, ProgressComponent],
   templateUrl: './user-save-page.component.html',
 })
 export class UserSavePageComponent implements OnInit, OnDestroy {
