@@ -64,7 +64,6 @@
                  [checked]="data.payload.enabled"
                  [disabled]="!data.principal.admin"
                  type="checkbox"
-                 (change)="checkBoxClick(enabledInputCheckBox.checked)"
                  #enabledInputCheckBox>
           <label class="form-check-label" for="enbl">Включен</label>
         </div>
@@ -72,13 +71,23 @@
       <div class="mb-2 row">
         <div class="text-center">
           <button *ngIf="data.principal.admin" aria-current="page" class="btn btn-outline-danger"
-                  routerLink="save" [skipLocationChange]="true" [queryParams]="{enabled: enabledInputCheckBox.checked}">
+                  (click)="saveButtonClick()">
             Сохранить
           </button>
         </div>
       </div>
     </div>
+    <modal #modal [modalConfig]="modalConfig">
+      <div *ngIf="postData$ | async as data; else progress">
+        <p>{{ data.payload.comment }}</p>
+      </div>
+      <ng-template #progress>
+        <progress-component/>
+      </ng-template>
+    </modal>
   </ng-template>
+
+
 </div>
 
 

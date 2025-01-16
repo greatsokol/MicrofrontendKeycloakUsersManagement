@@ -21,12 +21,6 @@ export const ROUTES: Routes = [
     runGuardsAndResolvers: "always"
   },
   {
-    path: ":realmName/:userName/save",
-    canActivate: [canActivate],
-    loadComponent: () => import("./pages/usersavepage/user-save-page.component").then(c => c.UserSavePageComponent),
-    runGuardsAndResolvers: "always"
-  },
-  {
     path: ":realmName/:userName/events",
     canActivate: [canActivate],
     loadComponent: () => import("./pages/usereventspage/user-events-page.component").then(c => c.UserEventsPageComponent),
