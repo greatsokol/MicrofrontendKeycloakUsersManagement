@@ -33,7 +33,7 @@ export class UserSavePageComponent implements OnInit, OnDestroy {
         if (!this.realmName) throw Error("'realmName' param not specified");
         if (!this.userName) throw Error("'userName' param not specified");
         if (!this.enabled) throw Error("'enabled' query param not specified");
-        this.data$ = this.post();
+        this.post();
       });
   }
 
@@ -46,6 +46,8 @@ export class UserSavePageComponent implements OnInit, OnDestroy {
     const headers = {
       headers: new HttpHeaders().set("Content-type", "application/x-www-form-urlencoded")
     };
-    return this.dataLoader.post("/api/user/" + this.realmName + "/" + this.userName, body, headers);
+    return this.dataLoader
+      .post("/api/user/" + this.realmName + "/" + this.userName, body, headers)
+      .then(data => this.data$ = data);
   }
 }
