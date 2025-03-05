@@ -2,7 +2,7 @@ import {AuthService} from "@@auth-lib";
 import {inject} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {serverUrl} from "../../../../config";
-import {Subscription} from "rxjs";
+import {firstValueFrom} from "rxjs";
 
 export class AuthorizableDataComponent {
   private authService = inject(AuthService);
@@ -26,13 +26,7 @@ export class AuthorizableDataComponent {
       headers: new HttpHeaders().set("Content-type", "application/x-www-form-urlencoded")
     };
     const url = new URL("/api/logins/" + this.authContext.userName, serverUrl);
-    const sub: Subscription = this.http
-      .post(url.href, body, headers)
-      .subscribe({
-        next: () => console.debug("SUCCESS"),
-        error: (error) => console.error(error),
-        complete: () => sub.unsubscribe()
-      });
+    firstValueFrom(this.http.post(url.href, body, headers)).catch(reason => console.log(reason));
   }
 
   constructor() {

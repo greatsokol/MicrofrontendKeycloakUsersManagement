@@ -5,7 +5,7 @@ import {AuthService} from "@@auth-lib";
 import {HttpClient} from "@angular/common/http";
 import {DATE_FORMAT} from "../../tokens/date-format.token";
 import {UserPageComponent} from "./user-page.component";
-import {UserLoaderService} from "../../data/services/UserLoaderService";
+import {DataLoaderService} from "../../data/services/data-loader.service";
 
 const check = (data: object | null,
                error: string | null,
@@ -13,9 +13,9 @@ const check = (data: object | null,
                truthy: boolean = true) => {
   const fixture = TestBed.createComponent(UserPageComponent);
   TestBed.runInInjectionContext(() => {
-    const mockUserLoaderService = inject(UserLoaderService);
-    mockUserLoaderService.getData = jasmine.createSpy().and.returnValue(data);
-    mockUserLoaderService.getError = jasmine.createSpy().and.returnValue(error);
+    const mockUserLoaderService = inject(DataLoaderService);
+    //mockUserLoaderService.getData = jasmine.createSpy().and.returnValue(data);
+    //mockUserLoaderService.getError = jasmine.createSpy().and.returnValue(error);
     fixture.componentInstance.dataLoader = mockUserLoaderService;
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
@@ -42,7 +42,7 @@ describe("KCUsers: UserPageComponent", () => {
         useValue: jasmine.createSpyObj("AuthService", ["subscribeOnKeycloakReady", "getAuthContext"])
       },
       {
-        provide: UserLoaderService,
+        provide: DataLoaderService,
         useValue: jasmine.createSpyObj("UserLoaderService", ["clear", "getData", "getError"])
       },
       {
