@@ -1,12 +1,12 @@
 import {Component, inject, Input, OnInit} from "@angular/core";
-import {DATE_FORMAT} from "../../services/DateFormatToken";
+import {DATE_FORMAT} from "../../tokens/date-format.token";
 import {AuthorizableDataComponent} from "../../components/etc/AuthorizableDataComponent";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {TitleComponent} from "../../components/title/title.component";
 import {AsyncPipe, DatePipe, NgIf} from "@angular/common";
 import {Observable} from "rxjs";
-import {UserResponse} from "../../types/UserResponse";
-import {DataLoader} from "../../services/DataLoader";
+import {UserResponseInterface} from "../../data/interfaces/user-response.interface";
+import {DataLoaderService} from "../../data/services/data-loader.service";
 import {ErrorComponent} from "../../components/error/error.component";
 import {FormsModule} from "@angular/forms";
 import {ProgressComponent} from "../../components/progress/progress.component";
@@ -23,9 +23,9 @@ export class UserPageComponent extends AuthorizableDataComponent implements OnIn
   @Input("userName") userName: string | undefined;
   //@ViewChild("enabledInputCheckBox") enabledInputCheckBox: any;
   private route = inject(ActivatedRoute);
-  dataLoader = inject(DataLoader);
+  dataLoader = inject(DataLoaderService);
   protected dateFormat = inject(DATE_FORMAT);
-  public data$: Observable<UserResponse> | undefined;
+  public data$: Observable<UserResponseInterface> | undefined;
 
   ngOnInit() {
     this.route.params.subscribe(params => {

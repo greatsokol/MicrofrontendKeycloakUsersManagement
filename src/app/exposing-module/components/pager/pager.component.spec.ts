@@ -1,16 +1,16 @@
 import {TestBed} from "@angular/core/testing";
 import {PagerComponent} from "./pager.component";
-import {PagableDataLoader} from "../../services/PagableDataLoader";
+import {PagableDataLoader} from "../../data/services/PagableDataLoader";
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "@@auth-lib";
 import {inject, NO_ERRORS_SCHEMA} from "@angular/core";
-import {PagableResponse} from "../../types/PagableResponse";
+import {PagableResponseInterface} from "../../data/interfaces/pagable-response.interface";
 
 const check = (data: object, element: string, truthy: boolean = true) => {
   const fixture = TestBed.createComponent(PagerComponent);
   TestBed.runInInjectionContext(() => {
     const mockPagebleDataLoader = inject(PagableDataLoader);
-    mockPagebleDataLoader.getData = jasmine.createSpy().and.returnValue(data as PagableResponse);
+    mockPagebleDataLoader.getData = jasmine.createSpy().and.returnValue(data as PagableResponseInterface);
     fixture.componentInstance.pageLoader = mockPagebleDataLoader;
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;

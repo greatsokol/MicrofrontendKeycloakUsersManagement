@@ -1,9 +1,9 @@
 import {Component, inject, Input, OnDestroy, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ActivatedRoute} from "@angular/router";
-import {DataLoader} from "../../services/DataLoader";
+import {DataLoaderService} from "../../data/services/data-loader.service";
 import {combineLatest, Observable, Subscription} from "rxjs";
-import {UserResponse} from "../../types/UserResponse";
+import {UserResponseInterface} from "../../data/interfaces/user-response.interface";
 import {HttpHeaders} from "@angular/common/http";
 import {ErrorComponent} from "../../components/error/error.component";
 import {TitleComponent} from "../../components/title/title.component";
@@ -21,8 +21,8 @@ export class UserSavePageComponent implements OnInit, OnDestroy {
   @Input("enabled") enabled: boolean | undefined;
   private route = inject(ActivatedRoute);
   private routeSubscription: Subscription | undefined;
-  dataLoader = inject(DataLoader);
-  public data$: Observable<UserResponse> | undefined;
+  dataLoader = inject(DataLoaderService);
+  public data$: Observable<UserResponseInterface> | undefined;
 
   ngOnInit(): void {
     this.routeSubscription = combineLatest([this.route.params, this.route.queryParams])

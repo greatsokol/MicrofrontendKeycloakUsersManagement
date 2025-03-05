@@ -1,4 +1,4 @@
-export type User = {
+export interface UserInterface {
   readonly userName: string;
   readonly realmName: string;
   readonly userId: string;
@@ -7,4 +7,4 @@ export type User = {
   readonly lastLogin: number;
   readonly comment: string;
   readonly enabled: boolean;
-};
+}

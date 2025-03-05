@@ -1,4 +1,4 @@
-export type Page = {
+export interface PageInterface {
   readonly empty: boolean;
   readonly first: boolean;
   readonly last: boolean;
@@ -7,4 +7,4 @@ export type Page = {
   readonly size: number;
   readonly totalElements: number;
   readonly totalPages: number;
-};
+}

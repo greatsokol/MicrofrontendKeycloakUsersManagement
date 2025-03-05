@@ -4,8 +4,8 @@ import {CUSTOM_ELEMENTS_SCHEMA, inject} from "@angular/core";
 import {UsersPageComponent} from "./users-page.component";
 import {AuthService} from "@@auth-lib";
 import {HttpClient} from "@angular/common/http";
-import {DATE_FORMAT} from "../../services/DateFormatToken";
-import {UsersLoaderService} from "../../services/UsersLoaderService";
+import {DATE_FORMAT} from "../../tokens/date-format.token";
+import {UsersLoaderService} from "../../data/services/UsersLoaderService";
 
 const check = (data: object | null,
                error: string | null,

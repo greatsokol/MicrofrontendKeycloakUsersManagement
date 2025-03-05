@@ -1,13 +1,13 @@
 import {Component, inject, Input, OnDestroy, OnInit} from "@angular/core";
-import {DATE_FORMAT} from "../../services/DateFormatToken";
+import {DATE_FORMAT} from "../../tokens/date-format.token";
 import {ActivatedRoute} from "@angular/router";
 import {AuthorizableDataComponent} from "../../components/etc/AuthorizableDataComponent";
 import {TitleComponent} from "../../components/title/title.component";
 import {AsyncPipe, DatePipe, NgFor, NgIf} from "@angular/common";
 import {PagerComponent} from "../../components/pager/pager.component";
 import {combineLatest, Observable, Subscription} from "rxjs";
-import {LoginResponse} from "../../types/LoginResponse";
-import {DataLoader} from "../../services/DataLoader";
+import {LoginResponseInterface} from "../../data/interfaces/login-response.interface";
+import {DataLoaderService} from "../../data/services/data-loader.service";
 import {ErrorComponent} from "../../components/error/error.component";
 import {ProgressComponent} from "../../components/progress/progress.component";
 
@@ -19,11 +19,11 @@ import {ProgressComponent} from "../../components/progress/progress.component";
 })
 export class LoginsPageComponent extends AuthorizableDataComponent implements OnInit, OnDestroy {
   protected dateFormat = inject(DATE_FORMAT);
-  dataLoader = inject(DataLoader);
+  dataLoader = inject(DataLoaderService);
   private route = inject(ActivatedRoute);
 
   private routeSubscription!: Subscription;
-  public data$: Observable<LoginResponse> | undefined;
+  public data$: Observable<LoginResponseInterface> | undefined;
   @Input("userName") userName: string | undefined;
 
   ngOnInit(): void {

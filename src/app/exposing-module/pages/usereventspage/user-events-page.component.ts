@@ -1,13 +1,13 @@
 import {Component, inject, Input, OnDestroy, OnInit} from "@angular/core";
-import {DATE_FORMAT} from "../../services/DateFormatToken";
+import {DATE_FORMAT} from "../../tokens/date-format.token";
 import {ActivatedRoute} from "@angular/router";
 import {AuthorizableDataComponent} from "../../components/etc/AuthorizableDataComponent";
 import {TitleComponent} from "../../components/title/title.component";
 import {PagerComponent} from "../../components/pager/pager.component";
 import {AsyncPipe, DatePipe, NgFor, NgIf} from "@angular/common";
 import {combineLatest, Observable, Subscription} from "rxjs";
-import {UsersEventsResponse} from "../../types/UserEventsResponse";
-import {DataLoader} from "../../services/DataLoader";
+import {UsersEventsResponseInterface} from "../../data/interfaces/user-events-response.interface";
+import {DataLoaderService} from "../../data/services/data-loader.service";
 import {ErrorComponent} from "../../components/error/error.component";
 import {ProgressComponent} from "../../components/progress/progress.component";
 
@@ -19,11 +19,11 @@ import {ProgressComponent} from "../../components/progress/progress.component";
 })
 export class UserEventsPageComponent extends AuthorizableDataComponent implements OnInit, OnDestroy {
   protected dateFormat = inject(DATE_FORMAT);
-  dataLoader = inject(DataLoader);
+  dataLoader = inject(DataLoaderService);
   private route = inject(ActivatedRoute);
 
   private routeSubscription: Subscription | undefined;
-  public data$: Observable<UsersEventsResponse> | undefined;
+  public data$: Observable<UsersEventsResponseInterface> | undefined;
   @Input("realmName") realmName: string | undefined;
   @Input("userName") userName: string | undefined;
 

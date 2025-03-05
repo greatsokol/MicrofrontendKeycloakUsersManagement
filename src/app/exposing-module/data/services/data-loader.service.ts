@@ -1,13 +1,13 @@
 import {inject} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {serverUrl} from "../../../config";
+import {serverUrl} from "../../../../config";
 import {catchError, map} from "rxjs/operators";
 import {Observable, of} from "rxjs";
 import {AuthService} from "@@auth-lib";
 
 type DataType = object | string | null;
 
-export class DataLoader {
+export class DataLoaderService {
   private httpClient = inject(HttpClient);
   private authService: AuthService = inject(AuthService);
 

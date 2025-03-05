@@ -3,8 +3,8 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {CUSTOM_ELEMENTS_SCHEMA, inject} from "@angular/core";
 import {AuthService} from "@@auth-lib";
 import {HttpClient} from "@angular/common/http";
-import {DATE_FORMAT} from "../../services/DateFormatToken";
-import {UserEventsLoaderService} from "../../services/UserEventsLoaderService";
+import {DATE_FORMAT} from "../../tokens/date-format.token";
+import {UserEventsLoaderService} from "../../data/services/UserEventsLoaderService";
 import {UserEventsPageComponent} from "./user-events-page.component";
 
 const check = (data: object | null,
