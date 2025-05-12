@@ -17,6 +17,7 @@
         "build": {
           "builder": "ngx-build-plus:browser",
           "options": {
+            "baseHref": "/kcusers/",
             "outputPath": "dist/mf-kcusers",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -90,9 +91,10 @@
             "port": 4202,
             "publicHost": "https://localhost:4202",
             "ssl": true,
-            "sslCert": "certs/any.local.crt",
-            "sslKey": "certs/any.local.key",
-            "extraWebpackConfig": "webpack.config.js"
+            "sslCert": "certs/localhost.crt",
+            "sslKey": "certs/localhost.key",
+            "extraWebpackConfig": "webpack.config.js",
+            "disableHostCheck": true
           }
         },
         "extract-i18n": {
@@ -123,40 +125,9 @@
           }
         }
       }
-    },
-    "auth-lib": {
-      "projectType": "library",
-      "root": "projects/auth",
-      "sourceRoot": "projects/auth-lib/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/auth-lib/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/auth-lib/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/auth-lib/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "codeCoverage": true,
-            "tsConfig": "projects/auth-lib/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
-          }
-        }
-      }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

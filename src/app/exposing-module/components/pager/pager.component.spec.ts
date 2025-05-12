@@ -2,7 +2,7 @@ import {TestBed} from "@angular/core/testing";
 import {PagerComponent} from "./pager.component";
 import {PagableDataLoader} from "../../data/services/PagableDataLoader";
 import {HttpClient} from "@angular/common/http";
-import {AuthService} from "@@auth-lib";
+import {AuthService} from "oidc-auth-lib";
 import {inject, NO_ERRORS_SCHEMA} from "@angular/core";
 import {PagableResponseInterface} from "../../data/interfaces/pagable-response.interface";
 

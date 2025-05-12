@@ -1,7 +1,7 @@
-import {AuthService} from "@@auth-lib";
+import {AuthService} from "oidc-auth-lib";
 import {inject} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {serverUrl} from "../../../../config";
+import {ALLOWED_ROLES_GROUP_NAME, serverUrl} from "../../../../config";
 import {firstValueFrom} from "rxjs";
 
 export class AuthorizableDataComponent {
@@ -34,7 +34,7 @@ export class AuthorizableDataComponent {
     this.authContext = this.authService.getAuthContext();
     this.newSessionId = this.authContext?.sessionId ? this.authContext?.sessionId : "";
     if (this.sessionsChanged()) {
-      this.authService.isAuthenticated().then(_ => this.registerKCProfileID());
+      this.authService.isAuthenticated(ALLOWED_ROLES_GROUP_NAME, true).then(_ => this.registerKCProfileID());
     }
   }
 }

@@ -1,9 +1,9 @@
 import {inject} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {serverUrl} from "../../../../config";
+import {ALLOWED_ROLES_GROUP_NAME, serverUrl} from "../../../../config";
 import {catchError, map} from "rxjs/operators";
 import {Observable, of} from "rxjs";
-import {AuthService} from "@@auth-lib";
+import {AuthService} from "oidc-auth-lib";
 
 type DataType = object | string | null;
 
@@ -18,7 +18,7 @@ export class DataLoaderService {
   }
 
   public async load(path: string, params?: object): Promise<Observable<any>> {
-    return this.authService.isAuthenticated().then(
+    return this.authService.isAuthenticated(ALLOWED_ROLES_GROUP_NAME, false).then(
       () => {
         const p = params ? params : {};
         let url = new URL(path, serverUrl);
@@ -37,7 +37,7 @@ export class DataLoaderService {
   }
 
   public post(path: string, body: string, headers: object): Promise<Observable<any>> {
-    return this.authService.isAuthenticated().then(
+    return this.authService.isAuthenticated(ALLOWED_ROLES_GROUP_NAME, true).then(
       () => {
         let url = new URL(path, serverUrl);
         return this
