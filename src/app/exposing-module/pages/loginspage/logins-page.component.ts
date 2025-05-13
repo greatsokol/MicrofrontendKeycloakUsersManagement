@@ -33,9 +33,7 @@ export class LoginsPageComponent extends AuthorizableDataComponent implements On
         if (!this.userName) throw Error("Empty user name");
         const page = params[1]["page"] ? params[1]["page"] : 0;
         const size = params[1]["size"] ? params[1]["size"] : 10;
-        this.dataLoader
-          .load("/api/logins/" + this.userName, {page, size})
-          .then(data => this.data$ = data);
+        this.data$ = this.dataLoader.load("/api/logins/" + this.userName, {page, size});
       });
   }
 

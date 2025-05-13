@@ -2,7 +2,7 @@ import {Component, inject, Input, OnDestroy, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ActivatedRoute} from "@angular/router";
 import {DataLoaderService} from "../../data/services/data-loader.service";
-import {combineLatest, Observable, Subscription} from "rxjs";
+import {combineLatest, firstValueFrom, Observable, Subscription} from "rxjs";
 import {UserResponseInterface} from "../../data/interfaces/user-response.interface";
 import {HttpHeaders} from "@angular/common/http";
 import {ErrorComponent} from "../../components/error/error.component";
@@ -43,11 +43,7 @@ export class UserSavePageComponent implements OnInit, OnDestroy {
 
   protected post() {
     const body = "enabled=" + this.enabled;
-    const headers = {
-      headers: new HttpHeaders().set("Content-type", "application/x-www-form-urlencoded")
-    };
-    return this.dataLoader
-      .post("/api/user/" + this.realmName + "/" + this.userName, body, headers)
-      .then(data => this.data$ = data);
+    const headers = new HttpHeaders().set("Content-type", "application/x-www-form-urlencoded");
+    this.data$ = this.dataLoader.post("/api/user/" + this.realmName + "/" + this.userName, body, headers);
   }
 }

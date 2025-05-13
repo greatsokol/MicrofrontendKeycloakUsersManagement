@@ -33,9 +33,7 @@ export class UserPageComponent extends AuthorizableDataComponent implements OnIn
       this.userName = params["userName"];
       if (!this.realmName) throw Error("empty realmName param");
       if (!this.userName) throw Error("empty userName param");
-      this.dataLoader
-        .load("/api/user/" + this.realmName + '/' + this.userName)
-        .then(data => this.data$ = data);
+      this.data$ = this.dataLoader.load("/api/user/" + this.realmName + '/' + this.userName);
     });
   }
 

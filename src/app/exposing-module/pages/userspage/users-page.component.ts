@@ -34,15 +34,14 @@ export class UsersPageComponent extends AuthorizableDataComponent implements OnI
       this.filter = params["filter"] ? params["filter"] : "";
       this.submitted = !!this.filter;
 
-      this.dataLoader
-        .load("/api/users", this.filter ? {
-          filter: this.filter,
-          page,
-          size
-        } : {
-          page,
-          size
-        }).then(data => this.data$ = data);
+      this.data$ = this.dataLoader.load("/api/users", this.filter ? {
+        filter: this.filter,
+        page,
+        size
+      } : {
+        page,
+        size
+      });
     });
   }
 
