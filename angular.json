@@ -38,42 +38,75 @@
             "commonChunk": false
           },
           "configurations": {
-            "test-env": {
+            "production-dev": {
+              "optimization": {
+                "styles": {
+                  "inlineCritical": false
+                }
+              },
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all",
+              "extraWebpackConfig": "webpack.prod.config.js"
+            },
+            "production-test": {
               "fileReplacements": [
                 {
                   "replace": "src/app/exposing-module/environments/backend-server-settings.ts",
                   "with": "src/app/exposing-module/environments/backend-server-settings.test-env.ts"
                 },
                 {
-                  "replace": "src/app/exposing-module/environments/auth-lib-allowed-roles.ts.ts",
-                  "with": "src/app/exposing-module/environments/auth-lib-allowed-roles.ts.test-env.ts"
+                  "replace": "src/app/exposing-module/environments/auth-lib-allowed-roles.ts",
+                  "with": "src/app/exposing-module/environments/auth-lib-allowed-roles.test-env.ts"
                 },
                 {
-                  "replace": "src/app/exposing-module/environments/auth-lib-settings.ts.ts.ts",
-                  "with": "src/app/exposing-module/environments/auth-lib-settings.ts.ts.test-env.ts"
+                  "replace": "src/app/exposing-module/environments/auth-lib-settings.ts",
+                  "with": "src/app/exposing-module/environments/auth-lib-settings.test-env.ts"
                 }
               ],
-              "localize": false,
-              "buildOptimizer": false,
-              "optimization": false,
-              "vendorChunk": true,
-              "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
+              "optimization": {
+                "styles": {
+                  "inlineCritical": false
+                }
+              },
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all",
+              "extraWebpackConfig": "webpack.prod.config.js"
             },
             "production": {
               "fileReplacements": [
                 {
                   "replace": "src/app/exposing-module/environments/backend-server-settings.ts",
-                  "with": "src/app/exposing-module/environments/backend-server-settings.production.ts"
+                  "with": "src/app/exposing-module/environments/backend-server-settings.prod.ts"
                 },
                 {
-                  "replace": "src/app/exposing-module/environments/auth-lib-allowed-roles.ts.ts",
-                  "with": "src/app/exposing-module/environments/auth-lib-allowed-roles.ts.production.ts"
+                  "replace": "src/app/exposing-module/environments/auth-lib-allowed-roles.ts",
+                  "with": "src/app/exposing-module/environments/auth-lib-allowed-roles.prod.ts"
                 },
                 {
-                  "replace": "src/app/exposing-module/environments/auth-lib-settings.ts.ts.ts",
-                  "with": "src/app/exposing-module/environments/auth-lib-settings.ts.ts.production.ts"
+                  "replace": "src/app/exposing-module/environments/auth-lib-settings.ts",
+                  "with": "src/app/exposing-module/environments/auth-lib-settings.prod.ts"
                 }
               ],
               "optimization": {
@@ -119,11 +152,6 @@
             },
             "development": {
               "browserTarget": "mf-kcusers:build:development",
-              "headers": {
-              }
-            },
-            "test-env": {
-              "browserTarget": "mf-kcusers:build:test-env",
               "headers": {
               }
             }
