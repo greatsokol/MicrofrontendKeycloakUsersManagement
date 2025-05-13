@@ -63,15 +63,15 @@
               "fileReplacements": [
                 {
                   "replace": "src/app/exposing-module/environments/backend-server-settings.ts",
-                  "with": "src/app/exposing-module/environments/backend-server-settings.test-env.ts"
+                  "with": "src/app/exposing-module/environments/backend-server-settings.tst.ts"
                 },
                 {
-                  "replace": "src/app/exposing-module/environments/auth-lib-allowed-roles.ts",
-                  "with": "src/app/exposing-module/environments/auth-lib-allowed-roles.test-env.ts"
+                  "replace": "src/app/environments/auth-lib-allowed-roles.ts",
+                  "with": "src/app/environments/auth-lib-allowed-roles.tst.ts"
                 },
                 {
-                  "replace": "src/app/exposing-module/environments/auth-lib-settings.ts",
-                  "with": "src/app/exposing-module/environments/auth-lib-settings.test-env.ts"
+                  "replace": "src/app/environments/auth-lib-settings.ts",
+                  "with": "src/app/environments/auth-lib-settings.tst.ts"
                 }
               ],
               "optimization": {
@@ -101,12 +101,12 @@
                   "with": "src/app/exposing-module/environments/backend-server-settings.prod.ts"
                 },
                 {
-                  "replace": "src/app/exposing-module/environments/auth-lib-allowed-roles.ts",
-                  "with": "src/app/exposing-module/environments/auth-lib-allowed-roles.prod.ts"
+                  "replace": "src/app/environments/auth-lib-allowed-roles.ts",
+                  "with": "src/app/environments/auth-lib-allowed-roles.prod.ts"
                 },
                 {
-                  "replace": "src/app/exposing-module/environments/auth-lib-settings.ts",
-                  "with": "src/app/exposing-module/environments/auth-lib-settings.prod.ts"
+                  "replace": "src/app/environments/auth-lib-settings.ts",
+                  "with": "src/app/environments/auth-lib-settings.prod.ts"
                 }
               ],
               "optimization": {
