@@ -38,7 +38,44 @@
             "commonChunk": false
           },
           "configurations": {
+            "test-env": {
+              "fileReplacements": [
+                {
+                  "replace": "src/app/exposing-module/environments/backend-server-settings.ts",
+                  "with": "src/app/exposing-module/environments/backend-server-settings.test-env.ts"
+                },
+                {
+                  "replace": "src/app/exposing-module/environments/auth-lib-allowed-roles.ts.ts",
+                  "with": "src/app/exposing-module/environments/auth-lib-allowed-roles.ts.test-env.ts"
+                },
+                {
+                  "replace": "src/app/exposing-module/environments/auth-lib-settings.ts.ts.ts",
+                  "with": "src/app/exposing-module/environments/auth-lib-settings.ts.ts.test-env.ts"
+                }
+              ],
+              "localize": false,
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/app/exposing-module/environments/backend-server-settings.ts",
+                  "with": "src/app/exposing-module/environments/backend-server-settings.production.ts"
+                },
+                {
+                  "replace": "src/app/exposing-module/environments/auth-lib-allowed-roles.ts.ts",
+                  "with": "src/app/exposing-module/environments/auth-lib-allowed-roles.ts.production.ts"
+                },
+                {
+                  "replace": "src/app/exposing-module/environments/auth-lib-settings.ts.ts.ts",
+                  "with": "src/app/exposing-module/environments/auth-lib-settings.ts.ts.production.ts"
+                }
+              ],
               "optimization": {
                 "styles": {
                   "inlineCritical": false
@@ -82,6 +119,11 @@
             },
             "development": {
               "browserTarget": "mf-kcusers:build:development",
+              "headers": {
+              }
+            },
+            "test-env": {
+              "browserTarget": "mf-kcusers:build:test-env",
               "headers": {
               }
             }

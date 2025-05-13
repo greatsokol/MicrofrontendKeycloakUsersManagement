@@ -1,12 +1,14 @@
 import {AuthService} from "oidc-auth-lib";
 import {inject} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {ALLOWED_ROLES_GROUP_NAME, serverUrl} from "../../../../config";
 import {firstValueFrom} from "rxjs";
+import {BACKEND_SERVER_SETTINGS} from "../../tokens/backend-server.token";
 
 export class AuthorizableDataComponent {
   private authService = inject(AuthService);
   private http = inject(HttpClient);
+  private backendServer = inject(BACKEND_SERVER_SETTINGS);
+
   private readonly ITEM_NAME = "kc-users-session";
 
   private readonly prevSessionId: string | null = null;
@@ -18,7 +20,7 @@ export class AuthorizableDataComponent {
     console.debug("SENDING LOGIN EVENT");
     const body = "sessionid=" + this.newSessionId;
     const headers = new HttpHeaders().set("Content-type", "application/x-www-form-urlencoded");
-    const url = new URL("/api/logins/" + this.authService.getUserName(), serverUrl);
+    const url = new URL("/api/logins/" + this.authService.getUserName(), this.backendServer.uri);
     firstValueFrom(this.http.post(url.href, body, {headers})).catch(reason => console.log(reason));
   }
 
@@ -26,7 +28,7 @@ export class AuthorizableDataComponent {
     this.prevSessionId = sessionStorage.getItem(this.ITEM_NAME);
     this.newSessionId = this.authService.getSessionId();
     if (this.prevSessionId != this.newSessionId) {
-      this.authService.isAuthenticated(ALLOWED_ROLES_GROUP_NAME, true).then(_ => this.registerKCProfileID());
+      this.registerKCProfileID();
     }
   }
 }

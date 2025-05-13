@@ -4,8 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve mf-kcusers",
+    "start-test": "ng serve mf-kcusers --configuration test-env",
     "serve:prod": "node scripts/serve.js",
     "build": "ng build mf-kcusers",
+    "build-test": "ng build mf-kcusers --configuration test-env",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
