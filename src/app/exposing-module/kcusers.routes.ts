@@ -1,5 +1,5 @@
 import {Routes} from "@angular/router";
-import {canActivate} from "./guards/auth.guard";
+//import {canActivate} from "./guards/auth.guard";
 
 export const ROUTES : Routes = [
   {
@@ -30,7 +30,7 @@ export const ROUTES : Routes = [
     path: ":realmName/:userName/events",
     //canActivate: [canActivate()],
     loadComponent: () => import("./pages/usereventspage/user-events-page.component").then(c => c.UserEventsPageComponent),
-    runGuardsAndResolvers: "always"
+    //runGuardsAndResolvers: "always"
   },
   {
     path: "no-rights",
