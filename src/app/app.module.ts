@@ -13,7 +13,7 @@ import {authLibAllowedRoles} from "./environments/auth-lib-allowed-roles";
 
 @NgModule({
   imports: [
-    AuthModule,
+    //AuthModule,
     BrowserModule,
     KcusersModule,
     RouterModule.forRoot(APP_ROUTES),
@@ -22,14 +22,14 @@ import {authLibAllowedRoles} from "./environments/auth-lib-allowed-roles";
   declarations: [
     AppComponent
   ],
-  providers: [
-    {
-      provide: AUTH_LIB_SETTINGS_TOKEN, useValue: authLibSettings
-    },
-    {
-      provide: AUTH_LIB_ALLOWED_ROLES_TOKEN, useValue: authLibAllowedRoles
-    }
-  ],
+  // providers: [
+  //   {
+  //     provide: AUTH_LIB_SETTINGS_TOKEN, useValue: authLibSettings
+  //   },
+  //   {
+  //     provide: AUTH_LIB_ALLOWED_ROLES_TOKEN, useValue: authLibAllowedRoles
+  //   }
+  // ],
   bootstrap: [
     AppComponent
   ]
