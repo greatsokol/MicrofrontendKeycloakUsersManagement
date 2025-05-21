@@ -4,7 +4,7 @@ module.exports = withModuleFederationPlugin({
   name: "mf_kcusers",
 
   exposes: {
-    "./KCUsersModule": "./src/app/exposing-module/kcusers.module.ts",
+    "./KcusersModule": "./src/app/exposing-module/kcusers.module.ts",
   },
 
   shared: {
