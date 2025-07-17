@@ -40,6 +40,7 @@ export interface TableColumns {
 export class TableComponent {
   @Input('data') data!: UsersEventsResponseInterface | UsersResponseInterface | LoginResponseInterface;
   @Input('columns') columns!: TableColumns;
+  @Input('pagerSkipLocationChange') pagerSkipLocationChange: boolean = false;
 
   castArray(array: any) {
     return array as NgIterable<UserInterface | UserEventInterface | LoginInterface>

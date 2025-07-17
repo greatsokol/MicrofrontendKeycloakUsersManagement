@@ -12,7 +12,7 @@
     <title-component title="Список авторизаций пользователя {{userName}}"></title-component>
     <div *ngIf="data$ | async as data" class="test-data-div">
 
-      <table-component [data]="data" [columns]="columns"></table-component>
+      <table-component [data]="data" [columns]="columns" [pagerSkipLocationChange]="true"></table-component>
 
     </div>
   </ng-template>
