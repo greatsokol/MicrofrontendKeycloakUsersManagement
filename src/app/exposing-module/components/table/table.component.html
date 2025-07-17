@@ -1,0 +1,36 @@
+<div class="test-data-div" *ngIf="data">
+
+
+  <table class="table table-hover">
+    <thead>
+    <tr class="table-primary unselectable sticky-top">
+      <th *ngFor="let column of columns.columnsDef" scope="col">
+        {{ column.title }}
+      </th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    <tr *ngFor="let item of castArray(data.payload.content)"
+        [ngStyle]="{'cursor': 'pointer'}"
+        [class]="columns.rowClass(item)"
+        [id]="columns.rowId(item)"
+        [routerLink]="columns.rowRouterLink ? columns.rowRouterLink(item) : undefined"
+    >
+      <ng-container *ngFor="let column of columns.columnsDef">
+        <th *ngIf="column.th"><span
+          [class]="column.contentClass ? column.contentClass(item) : null">{{ column.content(item) }}</span></th>
+        <td *ngIf="!column.th"><span
+          [class]="column.contentClass ? column.contentClass(item) : null">{{ column.content(item) }}</span></td>
+      </ng-container>
+    </tr>
+    </tbody>
+  </table>
+  <pager-component
+    [number]="data.payload.number"
+    [size]="data.payload.size"
+    [totalPages]="data.payload.totalPages"
+    [totalElements]="data.payload.totalElements"
+    [filter]="data.filter"
+    [skipLocationChange]="false"
+  ></pager-component>
+</div>

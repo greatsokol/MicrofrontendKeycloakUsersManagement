@@ -11,32 +11,9 @@
   <ng-template #content>
     <title-component title="Список авторизаций пользователя {{userName}}"></title-component>
     <div *ngIf="data$ | async as data" class="test-data-div">
-      <table class="table table-hover">
-        <thead>
-        <tr class="table-primary unselectable sticky-top">
-          <th scope="col">Время</th>
-          <th scope="col">Сессия</th>
-          <th scope="col">Адрес</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let event of data.payload.content"
-            class="table-success"
-            id="{{event.authTime}}"
-        >
-          <th><span>{{ event.authTime != 0 ? (event.authTime | date : dateFormat) : '' }}</span></th>
-          <td><span>{{ event.session }}</span></td>
-          <td><span>{{ event.address }}</span></td>
-        </tr>
-        </tbody>
-      </table>
-      <pager-component
-        [number]="data.payload.number"
-        [size]="data.payload.size"
-        [totalPages]="data.payload.totalPages"
-        [totalElements]="data.payload.totalElements"
-        [filter]="data.filter"
-      ></pager-component>
+
+      <table-component [data]="data" [columns]="columns"></table-component>
+
     </div>
   </ng-template>
 </div>

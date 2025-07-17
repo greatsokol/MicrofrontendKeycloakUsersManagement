@@ -54,7 +54,7 @@
                  value="{{data.payload.comment}}">
         </div>
         <div class="col-sm">
-          <a aria-current="page" class="btn btn-outline-success"
+          <a class="btn btn-outline-success"
              routerLink="events">События</a>
         </div>
       </div>
@@ -71,7 +71,7 @@
       </div>
       <div class="mb-2 row">
         <div class="text-center">
-          <button *ngIf="data.principal.admin" aria-current="page" class="btn btn-outline-danger"
+          <button *ngIf="data.principal.admin" class="btn btn-outline-danger"
                   routerLink="save" [skipLocationChange]="true" [queryParams]="{enabled: enabledInputCheckBox.checked}">
             Сохранить
           </button>

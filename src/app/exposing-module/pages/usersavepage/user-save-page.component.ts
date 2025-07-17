@@ -2,12 +2,10 @@ import {Component, inject, Input, OnDestroy, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ActivatedRoute} from "@angular/router";
 import {DataLoaderService} from "../../data/services/data-loader.service";
-import {combineLatest, firstValueFrom, Observable, Subscription} from "rxjs";
-import {UserResponseInterface} from "../../data/interfaces/user-response.interface";
+import {combineLatest, Observable, Subscription} from "rxjs";
+import {UserResponseInterface} from "../../data/interfaces";
 import {HttpHeaders} from "@angular/common/http";
-import {ErrorComponent} from "../../components/error/error.component";
-import {TitleComponent} from "../../components/title/title.component";
-import {ProgressComponent} from "../../components/progress/progress.component";
+import {ErrorComponent, ProgressComponent, TitleComponent} from "../../components";
 
 @Component({
   selector: 'user-save-page-component',

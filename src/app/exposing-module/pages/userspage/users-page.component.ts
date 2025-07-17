@@ -1,31 +1,68 @@
 import {Component, inject, OnInit} from "@angular/core";
-import {DATE_FORMAT} from "../../tokens/date-format.token";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import {AuthorizableDataComponent} from "../../components/etc/AuthorizableDataComponent";
-import {AsyncPipe, DatePipe, NgFor, NgIf, NgStyle} from "@angular/common";
-import {TitleComponent} from "../../components/title/title.component";
+import {
+  AuthorizableDataComponent,
+  ErrorComponent,
+  ProgressComponent,
+  TableColumns,
+  TableComponent,
+  TitleComponent
+} from "../../components";
+import {AsyncPipe, DatePipe, NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
-import {PagerComponent} from "../../components/pager/pager.component";
 import {Observable} from "rxjs";
-import {UsersResponseInterface} from "../../data/interfaces/users-response.interface";
+import {UserInterface, UsersResponseInterface} from "../../data/interfaces";
 import {DataLoaderService} from "../../data/services/data-loader.service";
-import {ErrorComponent} from "../../components/error/error.component";
-import {ProgressComponent} from "../../components/progress/progress.component";
 
 @Component({
   selector: "users-page-component",
   templateUrl: "./users-page.component.html",
   standalone: true,
-  imports: [NgIf, NgFor, NgStyle, RouterLink, DatePipe, FormsModule, TitleComponent, PagerComponent, AsyncPipe, ErrorComponent, ProgressComponent]
+  imports: [NgIf, RouterLink, FormsModule, TitleComponent, AsyncPipe, ErrorComponent, ProgressComponent, TableComponent],
+  providers: [DatePipe]
 })
 export class UsersPageComponent extends AuthorizableDataComponent implements OnInit {
-  protected dateFormat = inject(DATE_FORMAT);
   dataLoader = inject(DataLoaderService);
+  private datePipe = inject(DatePipe);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   protected filter: String = "";
   protected submitted: boolean = false;
   public data$: Observable<UsersResponseInterface> | undefined;
+
+  columns: TableColumns = {
+    columnsDef: [
+      {
+        title: 'Пользователь',
+        content: (user: UserInterface) => user.userName, th: true
+      },
+      {
+        title: 'Рилм',
+        content: (user: UserInterface) => user.realmName
+      },
+      {
+        title: 'Идентификатор',
+        content: (user: UserInterface) => user.userId
+      },
+      {
+        title: 'Создан',
+        content: (user: UserInterface) => user.created != 0 ? this.datePipe.transform(user.created, 'medium') : null
+      },
+      {
+        title: 'Логин',
+        content: (user: UserInterface) => user.lastLogin != 0 ? this.datePipe.transform(user.lastLogin, 'medium') : null
+      },
+      {title: 'Комментарий', content: (user: UserInterface) => user.comment},
+      {
+        title: 'Статус',
+        content: (user: UserInterface) => user.enabled ? 'Включен' : 'Заблокирован',
+        contentClass: (user: UserInterface) => user.enabled ? 'badge text-bg-success' : 'badge text-bg-danger'
+      },
+    ],
+    rowClass: (user: UserInterface): string => user.enabled ? (user.manuallyEnabledTime == null ? 'table-success' : 'table-warning') : 'table-danger',
+    rowId: (user: UserInterface): string => user.userId,
+    rowRouterLink: (user: UserInterface) => `${user.realmName}/${user.userName}`
+  };
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {

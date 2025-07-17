@@ -153,6 +153,7 @@
             "development": {
               "browserTarget": "mf-kcusers:build:development",
               "headers": {
+                "Content-Security-Policy": "default-src 'self' 'strict-dynamic' 'nonce-random-nonce'"
               }
             }
           },

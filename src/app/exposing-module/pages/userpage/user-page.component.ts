@@ -1,15 +1,12 @@
 import {Component, inject, Input, OnInit} from "@angular/core";
 import {DATE_FORMAT} from "../../tokens/date-format.token";
-import {AuthorizableDataComponent} from "../../components/etc/AuthorizableDataComponent";
+import {AuthorizableDataComponent, ErrorComponent, ProgressComponent, TitleComponent} from "../../components";
 import {ActivatedRoute, RouterLink} from "@angular/router";
-import {TitleComponent} from "../../components/title/title.component";
 import {AsyncPipe, DatePipe, NgIf} from "@angular/common";
 import {Observable} from "rxjs";
-import {UserResponseInterface} from "../../data/interfaces/user-response.interface";
+import {UserResponseInterface} from "../../data/interfaces";
 import {DataLoaderService} from "../../data/services/data-loader.service";
-import {ErrorComponent} from "../../components/error/error.component";
 import {FormsModule} from "@angular/forms";
-import {ProgressComponent} from "../../components/progress/progress.component";
 
 
 @Component({
