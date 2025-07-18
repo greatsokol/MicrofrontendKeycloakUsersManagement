@@ -17,10 +17,10 @@ export class UserSavePageComponent implements OnInit, OnDestroy {
   @Input("realmName") realmName: string | undefined;
   @Input("userName") userName: string | undefined;
   @Input("enabled") enabled: boolean | undefined;
-  private route = inject(ActivatedRoute);
-  private routeSubscription: Subscription | undefined;
+  route = inject(ActivatedRoute);
+  routeSubscription: Subscription | undefined;
   dataLoader = inject(DataLoaderService);
-  public data$: Observable<UserResponseInterface> | undefined;
+  data$: Observable<UserResponseInterface> | undefined;
 
   ngOnInit(): void {
     this.routeSubscription = combineLatest([this.route.params, this.route.queryParams])

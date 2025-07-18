@@ -1,5 +1,4 @@
 import {Component, inject, Input, OnDestroy, OnInit} from "@angular/core";
-import {DATE_FORMAT} from "../../tokens/date-format.token";
 import {ActivatedRoute} from "@angular/router";
 import {
   AuthorizableDataComponent,
@@ -22,13 +21,12 @@ import {DataLoaderService} from "../../data/services/data-loader.service";
   providers: [DatePipe]
 })
 export class LoginsPageComponent extends AuthorizableDataComponent implements OnInit, OnDestroy {
-  protected dateFormat = inject(DATE_FORMAT);
   dataLoader = inject(DataLoaderService);
-  private route = inject(ActivatedRoute);
-  private datePipe = inject(DatePipe);
+  route = inject(ActivatedRoute);
+  datePipe = inject(DatePipe);
 
-  private routeSubscription!: Subscription;
-  public data$: Observable<LoginResponseInterface> | undefined;
+  routeSubscription!: Subscription;
+  data$: Observable<LoginResponseInterface> | undefined;
   @Input("userName") userName: string | undefined;
 
   columns: TableColumns = {

@@ -9,7 +9,7 @@ import {
   TitleComponent
 } from "../../components";
 import {AsyncPipe, DatePipe, NgIf} from "@angular/common";
-import {FormsModule} from "@angular/forms";
+import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Observable} from "rxjs";
 import {UserInterface, UsersResponseInterface} from "../../data/interfaces";
 import {DataLoaderService} from "../../data/services/data-loader.service";
@@ -18,17 +18,21 @@ import {DataLoaderService} from "../../data/services/data-loader.service";
   selector: "users-page-component",
   templateUrl: "./users-page.component.html",
   standalone: true,
-  imports: [NgIf, RouterLink, FormsModule, TitleComponent, AsyncPipe, ErrorComponent, ProgressComponent, TableComponent],
+  imports: [NgIf, RouterLink, TitleComponent, AsyncPipe, ErrorComponent, ProgressComponent, TableComponent, ReactiveFormsModule],
   providers: [DatePipe]
 })
 export class UsersPageComponent extends AuthorizableDataComponent implements OnInit {
   dataLoader = inject(DataLoaderService);
-  private datePipe = inject(DatePipe);
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
-  protected filter: String = "";
-  protected submitted: boolean = false;
-  public data$: Observable<UsersResponseInterface> | undefined;
+  datePipe = inject(DatePipe);
+  router = inject(Router);
+  route = inject(ActivatedRoute);
+  fb = inject(FormBuilder);
+  filter: String = "";
+  data$: Observable<UsersResponseInterface> | undefined;
+
+  form = this.fb.group({
+    filter: this.fb.nonNullable.control<string>('', {validators: [Validators.maxLength(255)], updateOn: "blur"})
+  });
 
   columns: TableColumns = {
     columnsDef: [
@@ -69,7 +73,6 @@ export class UsersPageComponent extends AuthorizableDataComponent implements OnI
       const page = params["page"] ? params["page"] : 0;
       const size = params["size"] ? params["size"] : 10;
       this.filter = params["filter"] ? params["filter"] : "";
-      this.submitted = !!this.filter;
 
       this.data$ = this.dataLoader.load("/api/users", this.filter ? {
         filter: this.filter,
@@ -83,18 +86,19 @@ export class UsersPageComponent extends AuthorizableDataComponent implements OnI
   }
 
   onSearchSubmit = () => {
-    if (!this.filter.trim()) {
-      this.filter = "";
-      return;
-    }
-    this.submitted = true;
+    if (this.form.disabled || this.form.invalid) return;
+
+    this.form.markAllAsTouched();
+    this.form.updateValueAndValidity();
+
+    if (!this.form.value.filter?.trim()) return;
+
     this.router.navigate([], {
-      queryParams: {filter: this.filter}
-    });
+      queryParams: {filter: this.form.value.filter}
+    }).then(_ => {});
   }
 
   onSearchDismiss = () => {
-    this.submitted = false;
-    this.router.navigate([]);
+    this.router.navigate([]).then(_ => {});
   }
 }

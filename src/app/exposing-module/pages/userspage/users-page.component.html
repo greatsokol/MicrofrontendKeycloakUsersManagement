@@ -12,16 +12,17 @@
   <ng-template #content>
     <title-component title="Список&nbsp;пользователей" [back]=false>
       <div class="d-flex">
-        <form (ngSubmit)="onSearchSubmit()" class="input-group" method="get" role="search" *ngIf="!submitted">
+        <form [formGroup]="form" (ngSubmit)="onSearchSubmit()" class="input-group" method="get" role="search"
+              *ngIf="!filter">
           <input class="form-control" name="filter" maxlength="20"
-                 placeholder="Поиск" type="search" [(ngModel)]="filter">
+                 placeholder="Поиск" type="search" formControlName="filter">
           <button class="btn btn-outline-success" type="submit">Поиск</button>
         </form>
-        <form (ngSubmit)="onSearchDismiss()" *ngIf="submitted" class="input-group" method="get" role="search">
+        <div *ngIf="filter" class="input-group">
           <span class="input-group-text">Поиск</span>
           <span class="input-group-text">{{ filter }}</span>
-          <button class="btn btn-outline-success" type="submit">Сброс</button>
-        </form>
+          <button class="btn btn-outline-success" (click)="onSearchDismiss()">Сброс</button>
+        </div>
         <button class="btn btn-outline-primary"
                 routerLink="logins/{{data.principal.userName}}">История&nbsp;авторизаций
         </button>

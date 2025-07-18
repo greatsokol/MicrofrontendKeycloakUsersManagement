@@ -37,14 +37,14 @@
         <label class="col-sm-2 col-form-label fw-bold" for="createdTime">Создан</label>
         <div class="col-sm-10">
           <input class="form-control-plaintext" id="createdTime" readonly type="text"
-                 value="{{data.payload.created != 0 ? (data.payload.created | date : dateFormat) : ''}}">
+                 value="{{data.payload.created != 0 ? (data.payload.created | date : 'medium') : ''}}">
         </div>
       </div>
       <div class="mb-2 row">
         <label class="col-sm-2 col-form-label fw-bold" for="lastLogin">Последний&nbsp;логин</label>
         <div class="col-sm-10">
           <input class="form-control-plaintext" id="lastLogin" readonly type="text"
-                 value="{{data.payload.lastLogin != 0 ? (data.payload.lastLogin | date : dateFormat) : ''}}">
+                 value="{{data.payload.lastLogin != 0 ? (data.payload.lastLogin | date : 'medium') : ''}}">
         </div>
       </div>
       <div class="mb-2 row">
@@ -58,23 +58,21 @@
              routerLink="events">События</a>
         </div>
       </div>
-      <div class="mb-2 row">
+      <div class="row">
         <div class="text-center h1">
-          <input class="form-check-input" id="enbl"
-                 [checked]="data.payload.enabled"
-                 [disabled]="!data.principal.admin"
-                 type="checkbox"
-                 (change)="checkBoxClick(enabledInputCheckBox.checked)"
-                 #enabledInputCheckBox>
-          <label class="form-check-label" for="enbl">Включен</label>
-        </div>
-      </div>
-      <div class="mb-2 row">
-        <div class="text-center">
-          <button *ngIf="data.principal.admin" class="btn btn-outline-danger"
-                  routerLink="save" [skipLocationChange]="true" [queryParams]="{enabled: enabledInputCheckBox.checked}">
-            Сохранить
-          </button>
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+            <label class="m-lg-3 form-check-label" for="enbl">
+              <input class="form-check-input"
+                     formControlName="enabled"
+                     type="checkbox">
+              Включен
+              <button *ngIf="data.principal.admin" [disabled]="!valueChanged"
+                      [class]="valueChanged ? 'btn btn-outline-danger' : 'btn btn-outline-dark'" type="submit">
+                Сохранить
+              </button>
+            </label>
+          </form>
         </div>
       </div>
     </div>

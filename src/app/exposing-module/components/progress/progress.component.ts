@@ -8,7 +8,7 @@ import {NgIf} from "@angular/common";
   imports: [NgIf]
 })
 export class ProgressComponent implements OnInit {
-  protected show: boolean = false;
+  show: boolean = false;
 
   ngOnInit(): void {
     setInterval(() => {

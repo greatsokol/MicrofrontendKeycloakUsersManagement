@@ -5,8 +5,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-no-rights',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './no-rights.component.html',
-  styleUrls: ['./no-rights.component.css']
+  templateUrl: './no-rights.component.html'
 })
 export class NoRightsComponent {
 

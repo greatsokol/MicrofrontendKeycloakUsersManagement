@@ -10,7 +10,6 @@ import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   imports: [
-    //AuthModule,
     BrowserModule,
     KcusersModule,
     RouterModule.forRoot(APP_ROUTES),

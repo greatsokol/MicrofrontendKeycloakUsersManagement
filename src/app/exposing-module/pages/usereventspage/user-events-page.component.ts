@@ -22,11 +22,11 @@ import {DataLoaderService} from "../../data/services/data-loader.service";
 })
 export class UserEventsPageComponent extends AuthorizableDataComponent implements OnInit, OnDestroy {
   dataLoader = inject(DataLoaderService);
-  private route = inject(ActivatedRoute);
-  private datePipe = inject(DatePipe);
+  route = inject(ActivatedRoute);
+  datePipe = inject(DatePipe);
 
-  private routeSubscription: Subscription | undefined;
-  public data$: Observable<UsersEventsResponseInterface> | undefined;
+  routeSubscription: Subscription | undefined;
+  data$: Observable<UsersEventsResponseInterface> | undefined;
   @Input("realmName") realmName: string | undefined;
   @Input("userName") userName: string | undefined;
 

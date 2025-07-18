@@ -10,5 +10,5 @@ import {NgIf} from "@angular/common";
 export class TitleComponent {
   @Input("back") backEnabled: boolean = true;
   @Input("title") title: string = "";
-  protected readonly window = window;
+  readonly window = window;
 }
